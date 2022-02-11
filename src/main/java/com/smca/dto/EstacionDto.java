@@ -1,47 +1,67 @@
 package com.smca.dto;
 
-import java.io.Serializable;
-
-public class EstacionDto implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9164073463072611402L;
+public class EstacionDto{
 	
-	private String estacion;
-	private Float ph;
-	private Float cloro;
-	private Float temperatura;	
+	private Integer id;
+	private String nombre;
+	private String did;
+	private String coordx;
+	private String coordy;
+	private String chip;
 	
-	public EstacionDto(String estacion, Float ph, Float cloro, Float temperatura) {
+	public EstacionDto() {
 		super();
-		this.estacion = estacion;
-		this.ph = ph;
-		this.cloro = cloro;
-		this.temperatura = temperatura;
 	}
-	public String getEstacion() {
-		return estacion;
+
+	public EstacionDto(Integer id, String nombre, String did, String coordx, String coordy, String chip) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.did = did;
+		this.coordx = coordx;
+		this.coordy = coordy;
+		this.chip = chip;
 	}
-	public void setEstacion(String estacion) {
-		this.estacion = estacion;
+	
+	public Integer getId() {
+		return id;
 	}
-	public Float getPh() {
-		return ph;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public void setPh(Float ph) {
-		this.ph = ph;
+	public String getNombre() {
+		return nombre;
 	}
-	public Float getCloro() {
-		return cloro;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public void setCloro(Float cloro) {
-		this.cloro = cloro;
+	public String getDid() {
+		return did;
 	}
-	public Float getTemperatura() {
-		return temperatura;
+	public void setDid(String did) {
+		this.did = did;
 	}
-	public void setTemperatura(Float temperatura) {
-		this.temperatura = temperatura;
+	
+	public String getCoordx() {
+		return coordx;
 	}
+
+	public void setCoordx(String coordx) {
+		this.coordx = coordx;
+	}
+
+	public String getCoordy() {
+		return coordy;
+	}
+
+	public void setCoordy(String coordy) {
+		this.coordy = coordy;
+	}
+
+	public String getChip() {
+		return chip;
+	}
+	public void setChip(String chip) {
+		this.chip = chip;
+	}	
 }

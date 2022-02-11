@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smca.dto.IndicadorGraficoDto;
 import com.smca.dto.IndicadoresRecientesDto;
 import com.smca.model.Indicador;
 import com.smca.repo.IIndicadorRepo;
@@ -57,6 +58,12 @@ public class IndicadorServiceImpl implements IIndicadorService{
 	@Override
 	public Indicador get(Integer idestacion, LocalDateTime fecharegistro) {
 		return repo.get(idestacion, fecharegistro);
+	}
+
+	@Override
+	public List<IndicadorGraficoDto> listaIndicadorPorEstacion(Integer idestacion) {
+		// TODO Auto-generated method stub
+		return repo.listaIndicadorPorEstacion(idestacion);
 	}
 	
 }

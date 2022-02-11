@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="estacion")
-public class Estacion {
+public class Estacion implements Comparable<Estacion>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,17 +27,24 @@ public class Estacion {
 	@Column(name="coordy", nullable=false, length=50)
 	private String coordy;	
 	
+	@Column(name="chip", nullable=true, length=50)
+	private String chip;
+	
+	@Column(name="orden", nullable=true)
+	private Integer orden;
+	
 	public Estacion() {
 		super();
 	}
 
-	public Estacion(Integer id, String did,String nombre, String coordx, String coordy) {
+	public Estacion(Integer id, String did,String nombre, String coordx, String coordy,String chip) {
 		super();
 		this.id = id;
 		this.did = did;
 		this.nombre = nombre;
 		this.coordx = coordx;
 		this.coordy = coordy;
+		this.chip = chip;
 	}	
 
 	public Integer getId() {
@@ -80,4 +87,23 @@ public class Estacion {
 		this.coordy = coordy;
 	}
 
+	public String getChip() {
+		return chip;
+	}
+
+	public void setChip(String chip) {
+		this.chip = chip;
+	}
+
+	public Integer getOrden() {
+		return orden;
+	}
+
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+	
+	public int compareTo(Estacion est) {
+		return this.orden > est.getOrden() ? -1 : 1;
+	}
 }

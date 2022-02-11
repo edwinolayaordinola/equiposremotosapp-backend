@@ -12,24 +12,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="indicador")
-public class Indicador {
+@Table(name="indicadorcorriente")
+public class IndicadorCorriente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name="ph",nullable=false)
-	private Float ph;
+	@Column(name="corrientedc",nullable=false)
+	private Float corrientedc;
 	
-	@Column(name="cloro",nullable=false)
-	private Float cloro;
-	
-	@Column(name="temperatura",nullable=false)
-	private Float temperatura;
-	
-	@Column(name="caudal",nullable=true)
-	private Float caudal;
+	@Column(name="corrienteac",nullable=false)
+	private Float corrienteac;
 	
 	@Column(name="fecharegistro",nullable=false)
 	private LocalDateTime fecharegistro;
@@ -37,18 +31,16 @@ public class Indicador {
 	@ManyToOne
 	@JoinColumn(name="idestacion")
 	private Estacion estacion;
-
-	public Indicador() {
+	
+	public IndicadorCorriente() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Indicador(Float ph, Float cloro, Float temperatura, Float caudal, LocalDateTime fecharegistro, Estacion estacion) {
+	public IndicadorCorriente(Float corrientedc, Float corrienteac, LocalDateTime fecharegistro, Estacion estacion) {
 		super();
-		this.ph = ph;
-		this.cloro = cloro;
-		this.temperatura = temperatura;
-		this.caudal = caudal;
+		this.corrientedc = corrientedc;
+		this.corrienteac = corrienteac;
 		this.fecharegistro = fecharegistro;
 		this.estacion = estacion;
 	}
@@ -61,40 +53,24 @@ public class Indicador {
 		this.id = id;
 	}
 
-	public Float getPh() {
-		return ph;
+	public Float getCorrientedc() {
+		return corrientedc;
 	}
 
-	public void setPh(Float ph) {
-		this.ph = ph;
+	public void setCorrientedc(Float corrientedc) {
+		this.corrientedc = corrientedc;
 	}
 
-	public Float getCloro() {
-		return cloro;
+	public Float getCorrienteac() {
+		return corrienteac;
 	}
 
-	public void setCloro(Float cloro) {
-		this.cloro = cloro;
-	}
-
-	public Float getTemperatura() {
-		return temperatura;
-	}
-
-	public void setTemperatura(Float temperatura) {
-		this.temperatura = temperatura;
+	public void setCorrienteac(Float corrienteac) {
+		this.corrienteac = corrienteac;
 	}
 
 	public LocalDateTime getFecharegistro() {
 		return fecharegistro;
-	}
-
-	public Float getCaudal() {
-		return caudal;
-	}
-
-	public void setCaudal(Float caudal) {
-		this.caudal = caudal;
 	}
 
 	public void setFecharegistro(LocalDateTime fecharegistro) {
@@ -108,5 +84,4 @@ public class Indicador {
 	public void setEstacion(Estacion estacion) {
 		this.estacion = estacion;
 	}
-	
 }

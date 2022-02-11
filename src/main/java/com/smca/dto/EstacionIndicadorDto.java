@@ -13,7 +13,12 @@ public class EstacionIndicadorDto implements Serializable{
 	private Float cloro;
 	private Float ph;
 	private Float temperatura;
-	private LocalDateTime fecharegistro;
+	private Float caudal;
+	private Float corrientedc;
+	private Float corrienteac;
+	private String fecharegistro;
+	private String fecharegistrocorriente;
+	private Integer idestacion;
 	/**
 	 * 
 	 */
@@ -66,12 +71,42 @@ public class EstacionIndicadorDto implements Serializable{
 	}
 	public void setTemperatura(Float temperatura) {
 		this.temperatura = temperatura;
+	}	
+	public Float getCaudal() {
+		return caudal;
 	}
-	public LocalDateTime getFecharegistro() {
+	public void setCaudal(Float caudal) {
+		this.caudal = caudal;
+	}
+	public Float getCorrientedc() {
+		return corrientedc;
+	}
+	public void setCorrientedc(Float corrientedc) {
+		this.corrientedc = corrientedc;
+	}
+	public Float getCorrienteac() {
+		return corrienteac;
+	}
+	public void setCorrienteac(Float corrienteac) {
+		this.corrienteac = corrienteac;
+	}
+	public String getFecharegistro() {
 		return fecharegistro;
 	}
-	public void setFecharegistro(LocalDateTime fecharegistro) {
+	public void setFecharegistro(String fecharegistro) {
 		this.fecharegistro = fecharegistro;
+	}
+	public String getFecharegistrocorriente() {
+		return fecharegistrocorriente;
+	}
+	public void setFecharegistrocorriente(String fecharegistrocorriente) {
+		this.fecharegistrocorriente = fecharegistrocorriente;
+	}
+	public Integer getIdestacion() {
+		return idestacion;
+	}
+	public void setIdestacion(Integer idestacion) {
+		this.idestacion = idestacion;
 	}
 	
 }
