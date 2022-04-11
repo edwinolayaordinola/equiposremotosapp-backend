@@ -1,5 +1,6 @@
 package com.smca.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,35 +28,56 @@ public class UsuarioController {
 	
 	@GetMapping
 	public ResponseEntity<List<Usuario>> listar(){		
-		return new ResponseEntity<List<Usuario>>(usuarioService.listarHabilitados(),HttpStatus.OK); 
+		
+		List<Usuario> usuarios = new ArrayList<>();
+		usuarioService.listar().stream().sorted().forEach(obj->{
+			usuarios.add(obj);
+		});		
+		return new ResponseEntity<List<Usuario>>(usuarios,HttpStatus.OK);
 	}
+	
+	/*@GetMapping
+	public ResponseEntity<List<UsuarioItemDto>> listar(){
+		
+		return new ResponseEntity<List<UsuarioItemDto>>(usuarioService.listarItem(),HttpStatus.OK); 
+	}*/
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> listarPorId(@PathVariable("id") Integer id) throws Exception{
 		Usuario p = usuarioService.listarPorId(id);
 		return new ResponseEntity<Usuario>(p, HttpStatus.OK);
-	}
+	}	
 	
 	@PostMapping
 	public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario){
 		
-		if(usuario.getIdUsuario().equals(0)) {
-			usuario.setIdUsuario(usuarioService.maxId());
+		/*if(usuario.getPassword().equals("123456")) {
+			usuario.setIdUsuario(usuarioService.maxId()+1);
 			usuario.setPassword(BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt(11)));
-		}
-		
+		}*/
+		usuario.setIdUsuario(usuarioService.maxId()+1);
+		usuario.setPassword(BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt(11)));		
 		return new ResponseEntity<Usuario>(usuarioService.registrar(usuario),HttpStatus.OK);
 	}
 	
 	@PutMapping
 	public ResponseEntity<Usuario> modificar(@RequestBody Usuario usuario){		
+		
+		/*if(usuario.getPassword().equals("123456")) {
+			usuario.setPassword(BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt(11)));
+		}*/
+		usuario.setPassword(BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt(11)));
 		Usuario obj = usuarioService.modificar(usuario);
 		return new ResponseEntity<Usuario>(obj, HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Integer> eliminado(@PathVariable("id") Integer id){
-		return new ResponseEntity<Integer>(usuarioService.eliminado(id), HttpStatus.OK);
+	@DeleteMapping("/{id}/{estado}")
+	public ResponseEntity<Integer> eliminado(@PathVariable("id") Integer id,@PathVariable("estado") Integer estado){
+		
+		if(estado.equals(0)) {
+			return new ResponseEntity<Integer>(usuarioService.inhabilitar(id), HttpStatus.OK);
+		}
+		return new ResponseEntity<Integer>(usuarioService.habilitar(id), HttpStatus.OK);
 	}
 
 }

@@ -21,10 +21,9 @@ public class IndicadorController {
 	
 	@Autowired
 	private IIndicadorService service;
-	
-	
 	@Autowired
 	private IEstacionService estacionService;
+	String fechas[];
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<List<ClassIndicadorGraficoDto>> listaIndicadorGrafico(@PathVariable("id") Integer id){
@@ -37,7 +36,8 @@ public class IndicadorController {
 			igdto.setPh(obj.getPh());
 			igdto.setTemperatura(obj.getTemperatura());
 			igdto.setEstacion(estacionService.listarPorId(obj.getIdestacion()).getNombre());
-			igdto.setFecharegistro(obj.getFecharegistro());
+			fechas = obj.getFecharegistro().split("-");
+			igdto.setFecharegistro(fechas[2]+"/"+fechas[1]+"/"+fechas[0].substring(2,4));
 			dto.add(igdto);
 		});
 		

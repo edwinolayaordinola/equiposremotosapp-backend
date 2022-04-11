@@ -1,0 +1,20 @@
+package com.smca.repo;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.smca.model.Distrito;
+
+@Repository
+public interface IDistritoRepo extends JpaRepository<Distrito, Integer>{
+	
+	@Query(value="select * from distrito where idprovincia=?1",nativeQuery=true)
+	List<Distrito> findByProvincia(String idprovincia);
+	
+	@Query(value="select * from distrito where id=?1",nativeQuery=true)
+	Distrito buscarPorId(String id);
+	
+}

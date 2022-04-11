@@ -13,7 +13,7 @@ import com.smca.repo.IUsuarioRepo;
 @SpringBootTest
 class EquiposremotosappBackendApplicationTests {
 	
-	@Autowired
+	/*@Autowired
 	private BCryptPasswordEncoder bcrypt;
 	
 	@Autowired
@@ -31,6 +31,6 @@ class EquiposremotosappBackendApplicationTests {
 		Usuario retorno = repo.save(us);
 		
 		assertTrue(retorno.getPassword().equalsIgnoreCase(us.getPassword()));
-	}
+	}*/
 
 }

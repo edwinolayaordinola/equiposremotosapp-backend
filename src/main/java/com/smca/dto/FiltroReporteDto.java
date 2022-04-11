@@ -1,5 +1,6 @@
 package com.smca.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class FiltroReporteDto {

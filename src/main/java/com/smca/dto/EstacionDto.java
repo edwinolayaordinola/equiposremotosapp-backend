@@ -8,12 +8,16 @@ public class EstacionDto{
 	private String coordx;
 	private String coordy;
 	private String chip;
+	private String departamento;
+	private String provincia;
+	private String distrito;
+	private boolean estado;
 	
 	public EstacionDto() {
 		super();
 	}
 
-	public EstacionDto(Integer id, String nombre, String did, String coordx, String coordy, String chip) {
+	public EstacionDto(Integer id, String nombre, String did, String coordx, String coordy, String chip,String departamento,String provincia,String distrito,boolean estado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -21,6 +25,10 @@ public class EstacionDto{
 		this.coordx = coordx;
 		this.coordy = coordy;
 		this.chip = chip;
+		this.departamento = departamento;
+		this.provincia = provincia;
+		this.distrito = distrito;
+		this.estado = estado;
 	}
 	
 	public Integer getId() {
@@ -63,5 +71,37 @@ public class EstacionDto{
 	}
 	public void setChip(String chip) {
 		this.chip = chip;
-	}	
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getDistrito() {
+		return distrito;
+	}
+
+	public void setDistrito(String distrito) {
+		this.distrito = distrito;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 }

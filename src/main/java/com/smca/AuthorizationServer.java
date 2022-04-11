@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -45,7 +46,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter{
 	private JwtAccessTokenConverter accessTokenConverter;
 
 	@Autowired
-	private AuthenticationManager authenticationManager;	
+	private AuthenticationManager authenticationManager;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;	
@@ -53,7 +54,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter{
 	@Override
 	public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 		configurer.inMemory().withClient(clientId).secret(bcrypt.encode(clientSecret)).authorizedGrantTypes(grantType, "refresh_token")
-		.scopes(scopeRead, scopeWrite).resourceIds(resourceIds).accessTokenValiditySeconds(14400)
+		//.scopes(scopeRead, scopeWrite).resourceIds(resourceIds).accessTokenValiditySeconds(1800)
+		.scopes(scopeRead, scopeWrite).resourceIds(resourceIds).accessTokenValiditySeconds(28800)
 		.refreshTokenValiditySeconds(0);
 	}
 

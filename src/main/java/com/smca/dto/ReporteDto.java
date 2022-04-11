@@ -2,7 +2,9 @@ package com.smca.dto;
 
 import java.time.LocalDateTime;
 
-public class ReporteDto {
+import com.smca.model.Estacion;
+
+public class ReporteDto implements Comparable<ReporteDto>{
 	
 	public String nombre;
 	public String fecharegistro;
@@ -61,6 +63,12 @@ public class ReporteDto {
 
 	public void setTemperatura(Float temperatura) {
 		this.temperatura = temperatura;
+	}
+
+	@Override
+	public int compareTo(ReporteDto o) {
+		// TODO Auto-generated method stub
+		return this.getFecharegistro().compareTo(o.getFecharegistro());
 	}
 	
 }

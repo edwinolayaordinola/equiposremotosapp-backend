@@ -1,6 +1,6 @@
 package com.smca.repo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,8 +13,8 @@ import com.smca.model.Indicador;
 public interface IReporteRepo extends JpaRepository<Indicador, Integer> {
 	
 	//JPQL
-	@Query(value="FROM Indicador ind where ind.estacion.id=?1 and ind.fecharegistro BETWEEN ?2 and ?3")
-	List<Indicador> getReporte(Integer idEstación, LocalDateTime fechaInicio, LocalDateTime fechaFin);
+	@Query(value="select * FROM Indicador ind where ind.idestacion=?1 and ind.fecharegistro BETWEEN ?2 and ?3",nativeQuery=true)
+	List<Indicador> getReporte(Integer idEstación, LocalDate fechaInicio, LocalDate fechaFin);
 	
 	
 }

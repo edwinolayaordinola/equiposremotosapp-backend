@@ -4,9 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +43,11 @@ public class ReporteController {
 	@Autowired
 	IIndicadorService indicadorService;
 	
+	DecimalFormat df  = new DecimalFormat("#.00");
+	
+	Row row;
+	int initRow;
+	
 	@PostMapping
 	public ResponseEntity<List<ReporteDto>> listaReporte(@RequestBody FiltroReporteDto filtro){
 		List<ReporteDto> reporteDto = new ArrayList<>();
@@ -64,13 +69,8 @@ public class ReporteController {
 			@PathVariable(value="fechainicioconsulta") String fechainicioconsulta,
 			@PathVariable(value="fechafinconsulta") String fechafinconsulta){
 		
-		System.out.println("fechainicioconsulta : " + fechainicioconsulta);
-		System.out.println("fechafinconsulta : " + fechafinconsulta);
-		
-		LocalDateTime datetimeinicio = LocalDateTime.parse(fechainicioconsulta+"T00:00:00");
-		
-		LocalDateTime datetimefin = LocalDateTime.parse(fechafinconsulta+"T00:00:00");
-		
+		LocalDateTime datetimeinicio = LocalDateTime.parse(fechainicioconsulta+"T00:00:00");		
+		LocalDateTime datetimefin = LocalDateTime.parse(fechafinconsulta+"T00:00:00");		
 		Date date = new Date();
 		DateFormat hourFormat = new SimpleDateFormat("HHmmss");
 		DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -81,7 +81,7 @@ public class ReporteController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		
-		String fecha_archivo = dateFormat.format(date) + hourFormat.format(date);
+		String fecha_archivo = dateFormat.format(date) +"_"+ hourFormat.format(date);
 		
 		headers.add("Content-Disposition", "attachment; filename=smca_"+fecha_archivo+".csv");
 		
@@ -109,23 +109,34 @@ public class ReporteController {
 		String [] columns = {"Estación","Fecha","Cloro","PH","Temperatura"};
 		
 		Sheet sheet = workbook.createSheet("Data");
-		Row row = sheet.createRow(0);
+		row = sheet.createRow(0);
 		
 		for(int i=0;i<columns.length;i++) {
 			Cell cell = row.createCell(i);
 			cell.setCellValue(columns[i]);
 		}		
 		
-		int initRow = 1;
-		for(ReporteDto dto : reporteDto) {
+		initRow = 1;
+		
+		reporteDto.stream().sorted().forEach(dto->{
 			row = sheet.createRow(initRow);
 			row.createCell(0).setCellValue(dto.getNombre());
 			row.createCell(1).setCellValue(dto.getFecharegistro());
-			row.createCell(2).setCellValue(dto.getCloro());
-			row.createCell(3).setCellValue(dto.getPh());
-			row.createCell(4).setCellValue(dto.getTemperatura());
+			row.createCell(2).setCellValue(Float.valueOf(dto.getCloro()));
+			row.createCell(3).setCellValue(Float.valueOf(dto.getPh()));
+			row.createCell(4).setCellValue(Float.valueOf(dto.getTemperatura()));
 			initRow++;
-		}
+		});
+		
+		/*for(ReporteDto dto : reporteDto) {
+			row = sheet.createRow(initRow);
+			row.createCell(0).setCellValue(dto.getNombre());
+			row.createCell(1).setCellValue(dto.getFecharegistro());
+			row.createCell(2).setCellValue(Float.valueOf(df.format(dto.getCloro())));
+			row.createCell(3).setCellValue(Float.valueOf(df.format(dto.getPh())));
+			row.createCell(4).setCellValue(Float.valueOf(df.format(dto.getTemperatura())));
+			initRow++;
+		}*/
 		
 		try {
 			workbook.write(stream);

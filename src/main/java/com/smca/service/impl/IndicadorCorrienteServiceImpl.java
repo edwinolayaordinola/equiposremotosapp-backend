@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.smca.dto.IndicadorCorrienteRecienteDto;
 import com.smca.dto.IndicadoresCorrienteRecientesDto;
 import com.smca.model.IndicadorCorriente;
 import com.smca.repo.IIndicadorCorrienteRepo;
@@ -49,10 +50,22 @@ public class IndicadorCorrienteServiceImpl implements IIndicadorCorrienteService
 	public List<IndicadoresCorrienteRecientesDto> getRecientes() {
 		return repo.getRecientes();
 	}
+	
+	
 
 	@Override
 	public IndicadorCorriente get(Integer idestacion, LocalDateTime fecharegistro) {
 		return repo.get(idestacion, fecharegistro);
+	}
+
+	@Override
+	public IndicadorCorrienteRecienteDto reciente(Integer idEstacion) {
+		return repo.reciente(idEstacion);
+	}
+
+	@Override
+	public IndicadorCorriente getReciente(Integer idEstacion) {
+		return repo.getReciente(idEstacion);
 	}
 
 }

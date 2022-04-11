@@ -40,7 +40,6 @@ public class Indicador {
 
 	public Indicador() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Indicador(Float ph, Float cloro, Float temperatura, Float caudal, LocalDateTime fecharegistro, Estacion estacion) {

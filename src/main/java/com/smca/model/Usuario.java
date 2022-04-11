@@ -5,8 +5,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -15,26 +13,29 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuario")
-public class Usuario {
+public class Usuario implements Comparable<Usuario>{
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idUsuario;
 	
-	@Column(name = "username", nullable = true, unique = true)
+	@Column(name = "username", nullable = false, unique = true,length=150)
 	private String username;
 
-	@Column(name = "nombre", nullable = true)
+	@Column(name = "nombre", nullable = false,length=150)
 	private String nombre;
 	
-	@Column(name = "apellido", nullable = true)
+	@Column(name = "apellido", nullable = false, length=150)
 	private String apellido;
 	
-	@Column(name = "cargo", nullable = true)
+	@Column(name = "cargo", nullable = false, length=150)
 	private String cargo;
 
-	@Column(name = "clave", nullable = false)
+	@Column(name = "clave", nullable = true,length=150)
 	private String password;
+	
+	@Column(name = "correo", nullable = true,length=150)
+	private String correo;
 
 	@Column(name = "estado", nullable = false)
 	private boolean enabled;
@@ -93,6 +94,14 @@ public class Usuario {
 		this.password = password;
 	}
 
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -107,6 +116,11 @@ public class Usuario {
 
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
+	}
+
+	@Override
+	public int compareTo(Usuario o) {
+		return this.getNombre().compareTo(o.getNombre());
 	}
 
 }

@@ -20,7 +20,7 @@ public class ReporteServiceImpl implements IReporteService{
 	@Override
 	public List<Indicador> getReporte(FiltroReporteDto filtro) {
 		LocalDateTime fechaFin = filtro.getFechaFinConsulta().plusDays(1);
-		return repo.getReporte(filtro.getIdEstacion(),filtro.getFechaInicioConsulta(),fechaFin);
+		return repo.getReporte(filtro.getIdEstacion(),filtro.getFechaInicioConsulta().toLocalDate(),fechaFin.toLocalDate());
 	}
 
 }

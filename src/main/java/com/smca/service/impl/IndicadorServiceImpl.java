@@ -1,6 +1,7 @@
 package com.smca.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smca.dto.IndicadorGraficoDto;
+import com.smca.dto.IndicadorRecienteDto;
 import com.smca.dto.IndicadoresRecientesDto;
 import com.smca.model.Indicador;
 import com.smca.repo.IIndicadorRepo;
@@ -18,6 +20,9 @@ public class IndicadorServiceImpl implements IIndicadorService{
 	
 	@Autowired
 	IIndicadorRepo repo;
+	
+	DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd hh:mm:ss");	
+	LocalDateTime fecha;
 
 	@Override
 	public Indicador registrar(Indicador obj) {
@@ -62,8 +67,13 @@ public class IndicadorServiceImpl implements IIndicadorService{
 
 	@Override
 	public List<IndicadorGraficoDto> listaIndicadorPorEstacion(Integer idestacion) {
-		// TODO Auto-generated method stub
 		return repo.listaIndicadorPorEstacion(idestacion);
+	}
+
+	@Override
+	public Indicador getReciente(Integer idEstacion) {
+		return repo.getReciente(idEstacion);
+		
 	}
 	
 }

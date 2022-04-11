@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.smca.model.Estacion;
+import com.smca.dto.UsuarioItemDto;
 import com.smca.model.Usuario;
 import com.smca.repo.IUsuarioRepo;
 import com.smca.service.IUsuarioService;
@@ -22,7 +22,9 @@ import com.smca.service.IUsuarioService;
 public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService{
 
 	@Autowired
-	private IUsuarioRepo repo;	
+	private IUsuarioRepo repo;		
+	int item = 0; 
+	List<UsuarioItemDto> usuariosItemsDto;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -58,8 +60,20 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService{
 
 	@Override
 	public List<Usuario> listar() {
-		// TODO Auto-generated method stub
 		return repo.findAll();
+	}
+	
+	@Override
+	public List<UsuarioItemDto> listarItem() {
+		
+		item = 0;
+		usuariosItemsDto = new ArrayList<>();
+		repo.findAll().forEach(obj->{			
+			item++;
+			UsuarioItemDto dto = new UsuarioItemDto(item,obj);
+			usuariosItemsDto.add(dto);
+		});		
+		return usuariosItemsDto;
 	}
 
 	@Override
@@ -91,6 +105,24 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService{
 	public int eliminado(Integer id) {
 		// TODO Auto-generated method stub
 		return repo.eliminado(id);
+	}
+
+	@Override
+	public int habilitar(Integer id) {
+		// TODO Auto-generated method stub
+		return repo.habilitar(id);
+	}
+
+	@Override
+	public int inhabilitar(Integer id) {
+		// TODO Auto-generated method stub
+		return repo.inhabilitar(id);
+	}
+
+	@Override
+	public boolean getEstado(String usuario) {
+		// TODO Auto-generated method stub
+		return repo.getEstado(usuario);
 	}
 
 }
