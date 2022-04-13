@@ -21,9 +21,7 @@ public class FileServiceImpl implements FileService{
 	
 	//Nombre de la carpeta donde vamos a almacenar los archivos
     //Se crea a nivel de raiz la carpeta
-	
 	//String directorio = "D:/Sunass/Equipos Remotos/github/equiposremotosapp-backend/ArchivosFichasDescriptivas/";
-	//String directorio = "/opt/apache-tomcat-8.5.73/webapps/simcaArchivos/ArchivosFichasDescriptivas/desarrollo/";
 	String directorio = "/opt/apache-tomcat-8.5.73/webapps/simcaArchivos/ArchivosFichasDescriptivas/desarrollo/";
 	//String directorio = "/opt/apache-tomcat-8.5.73/webapps/simcaArchivos/ArchivosFichasDescriptivas/prd/";
 	

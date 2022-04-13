@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -43,10 +45,13 @@ public class ReporteController {
 	@Autowired
 	IIndicadorService indicadorService;
 	
-	DecimalFormat df  = new DecimalFormat("#.00");
+	//DecimalFormat df  = new DecimalFormat("#.00");
 	
 	Row row;
 	int initRow;
+	
+	DecimalFormatSymbols separadoresPersonalizados = new DecimalFormatSymbols();
+	
 	
 	@PostMapping
 	public ResponseEntity<List<ReporteDto>> listaReporte(@RequestBody FiltroReporteDto filtro){
@@ -91,6 +96,10 @@ public class ReporteController {
 	public ByteArrayInputStream getDescargar(FiltroReporteDto filtro) {
 		
 		Workbook workbook = new HSSFWorkbook();
+		
+		separadoresPersonalizados.setDecimalSeparator('.');
+		DecimalFormat formato1 = new DecimalFormat("#.00", separadoresPersonalizados);
+		   
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		
 		List<ReporteDto> reporteDto = new ArrayList<>();		
@@ -122,21 +131,11 @@ public class ReporteController {
 			row = sheet.createRow(initRow);
 			row.createCell(0).setCellValue(dto.getNombre());
 			row.createCell(1).setCellValue(dto.getFecharegistro());
-			row.createCell(2).setCellValue(Float.valueOf(dto.getCloro()));
-			row.createCell(3).setCellValue(Float.valueOf(dto.getPh()));
-			row.createCell(4).setCellValue(Float.valueOf(dto.getTemperatura()));
+			row.createCell(2).setCellValue(formato1.format(dto.getCloro()));
+			row.createCell(3).setCellValue(formato1.format(dto.getPh()));
+			row.createCell(4).setCellValue(formato1.format(dto.getTemperatura()));
 			initRow++;
 		});
-		
-		/*for(ReporteDto dto : reporteDto) {
-			row = sheet.createRow(initRow);
-			row.createCell(0).setCellValue(dto.getNombre());
-			row.createCell(1).setCellValue(dto.getFecharegistro());
-			row.createCell(2).setCellValue(Float.valueOf(df.format(dto.getCloro())));
-			row.createCell(3).setCellValue(Float.valueOf(df.format(dto.getPh())));
-			row.createCell(4).setCellValue(Float.valueOf(df.format(dto.getTemperatura())));
-			initRow++;
-		}*/
 		
 		try {
 			workbook.write(stream);

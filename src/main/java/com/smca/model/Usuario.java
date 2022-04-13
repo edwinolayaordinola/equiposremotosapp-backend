@@ -31,11 +31,17 @@ public class Usuario implements Comparable<Usuario>{
 	@Column(name = "cargo", nullable = false, length=150)
 	private String cargo;
 
-	@Column(name = "clave", nullable = true,length=150)
+	@Column(name = "clave", nullable = false,length=150)
 	private String password;
 	
-	@Column(name = "correo", nullable = true,length=150)
+	@Column(name = "correo", nullable = false,length=150)
 	private String correo;
+	
+	@Column(name = "ubicacion", nullable = true,length=150)
+	private String ubicacion;
+	
+	@Column(name = "celular", nullable = true,length=9)
+	private String celular;
 
 	@Column(name = "estado", nullable = false)
 	private boolean enabled;
@@ -50,9 +56,7 @@ public class Usuario implements Comparable<Usuario>{
 
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
-	}
-	
-	
+	}	
 
 	public String getNombre() {
 		return nombre;
@@ -100,6 +104,22 @@ public class Usuario implements Comparable<Usuario>{
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+
+	public String getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	public boolean isEnabled() {

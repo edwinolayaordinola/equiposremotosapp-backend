@@ -42,6 +42,9 @@ public class Estacion implements Comparable<Estacion>{
 	@Column(name="direccion", nullable=true,length=250)
 	private String direccion;
 	
+	@Column(name="localidad", nullable=true,length=250)
+	private String localidad;
+	
 	@Column(name="nombreadministrador", nullable=true,length=150)
 	private String nombreadministrador;
 	
@@ -74,7 +77,7 @@ public class Estacion implements Comparable<Estacion>{
 	public Integer getId() {
 		return id;
 	}
-
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -141,6 +144,14 @@ public class Estacion implements Comparable<Estacion>{
 
 	public void setDireccion(String dirección) {
 		this.direccion = dirección;
+	}
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
 	}
 
 	public String getNombreadministrador() {

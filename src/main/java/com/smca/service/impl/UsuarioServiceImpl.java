@@ -125,4 +125,10 @@ public class UsuarioServiceImpl implements UserDetailsService, IUsuarioService{
 		return repo.getEstado(usuario);
 	}
 
+	@Override
+	public List<Usuario> estadoUsuario(String usuario) {
+		// TODO Auto-generated method stub
+		return repo.estadoUsuario(usuario);
+	}
+
 }

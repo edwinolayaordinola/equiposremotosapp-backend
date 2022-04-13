@@ -14,5 +14,6 @@ public interface IUsuarioService extends ICRUD<Usuario, Integer>{
 	int inhabilitar(Integer id);	
 	boolean getEstado(String usuario);
 	List<UsuarioItemDto> listarItem();
+	List<Usuario> estadoUsuario(String usuario);
 
 }

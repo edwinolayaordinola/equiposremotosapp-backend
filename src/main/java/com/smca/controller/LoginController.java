@@ -3,6 +3,8 @@ package com.smca.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,14 @@ public class LoginController {
 			}
 		}
 		return new ResponseEntity<Boolean>(false,HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/estadousuario/{usuario}")
+	public ResponseEntity<Boolean> estadoUsuario(@PathVariable(value="usuario") String usuario) throws Exception{
+		System.out.println(usuario);
+		System.out.println(usuarioService.estadoUsuario(usuario).size());
+		Boolean estado = usuarioService.estadoUsuario(usuario).size()>0 ? true : false; 
+		return new ResponseEntity<Boolean>(estado,HttpStatus.OK);
 	}
 
 }

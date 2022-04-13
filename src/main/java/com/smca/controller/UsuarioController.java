@@ -68,7 +68,7 @@ public class UsuarioController {
 		}*/
 		usuario.setPassword(BCrypt.hashpw(usuario.getPassword(), BCrypt.gensalt(11)));
 		Usuario obj = usuarioService.modificar(usuario);
-		return new ResponseEntity<Usuario>(obj, HttpStatus.CREATED);
+		return new ResponseEntity<Usuario>(obj, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}/{estado}")

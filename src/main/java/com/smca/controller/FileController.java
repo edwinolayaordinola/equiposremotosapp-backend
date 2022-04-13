@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import com.smca.dto.ArchivoDto;
+import com.smca.dto.EstacionDto;
 import com.smca.message.FileMessage;
 import com.smca.model.FileModel;
 import com.smca.service.FileService;
@@ -52,6 +53,12 @@ public class FileController {
             message = "Fallo al subir los archivos";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FileMessage(message));
         }
+    }
+    
+    @GetMapping("/creardirectorio/{id}")
+    public ResponseEntity<Integer> crearDirectorio(@PathVariable("id") Integer id){
+        fileService.init(String.valueOf(id));
+        return new ResponseEntity<Integer>(id,HttpStatus.OK);
     }
     
     @PutMapping("/upload")

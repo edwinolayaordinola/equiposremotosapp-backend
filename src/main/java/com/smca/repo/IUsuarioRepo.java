@@ -21,6 +21,9 @@ public interface IUsuarioRepo extends JpaRepository<Usuario, Integer>{
 	@Query(value="select * from usuario where estado=true",nativeQuery=true)
 	List<Usuario> listarHabilitados();
 	
+	@Query(value="select * from usuario where username=?1 and estado=true",nativeQuery=true)
+	List<Usuario> estadoUsuario(String usuario);	
+	
 	@Transactional
 	@Modifying	
 	@Query(value="update usuario set estado=false where id_usuario=?1",nativeQuery=true)
